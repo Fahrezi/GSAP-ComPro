@@ -1,0 +1,39 @@
+section.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+}
+
+section.info > h1 {
+  font-size: 3rem;
+  font-weight: 500;
+  margin-bottom: 3rem;
+}
+
+section.info p {
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  section.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 3rem;
+  }
+
+  section.info > h1 {
+    font-size: 150px;
+    font-weight: 500;
+    margin-bottom: 4rem;
+  }
+
+  section.info p {
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+}

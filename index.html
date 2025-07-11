@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/hero.css">
+    <link rel="stylesheet" href="./styles/categories.css">
+    <link rel="stylesheet" href="./styles/experience.css">
+    <link rel="stylesheet" href="./styles/news.css">
+    <link rel="stylesheet" href="./styles/contact.css">
+    <link rel="stylesheet" href="./styles/info.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app">
+      <!--HERO PANEL-->
+      <section class="hero panel" id="hero">
+        <h2>
+          <span class="company-hero">ASA KREASI INTERASIA</span>
+        </h2>
+        <h1><span class="text-hero-container"><span class="text-hero">WHEN</span></span> <span class="text-hero-container"><span class="text-hero">CREATIVITY</span></span><br/> <span class="text-hero-container"><span class="text-hero">MEETS</span></span><br/> <span class="text-hero-container"><span class="text-hero">TECHNOLOGY</span></span></h1>
+      </section>
+      <!--CATEGORIES PANEL-->
+      <section class="categories panel" id="categories">
+        <div class="category categories-desktop">
+          <div class="list" style="background-image: url('./assets/category-1.png')">
+            <h3 class="category-list-title">TECHNOLOGY</h3>
+            <span class="expand" data-target="technology">
+              <i data-lucide="plus"></i>
+            </span>
+          </div>
+          <div class="list" style="background-image: url('./assets/category-2.png')">
+            <h3 class="category-list-title">CREATIVE</h3>
+            <span class="expand" data-target="creative">
+              <i data-lucide="plus"></i>
+            </span>
+          </div>
+          <div class="list" style="background-image: url('./assets/category-3.png')">
+            <h3 class="category-list-title">EDU-TECH</h3>
+            <span class="expand" data-target="edutech">
+              <i data-lucide="plus"></i>
+            </span>
+          </div>
+        </div>
+        <div class="swiper categories-swiper-mobile">
+          <div class="swiper-wrapper category">
+            <div class="swiper-slide">
+              <div class="list" style="background-image: url('./assets/category-1.png')">
+                <h3 class="category-list-title">TECHNOLOGY</h3>
+                <span class="expand" data-target="technology">
+                  <i data-lucide="plus"></i>
+                </span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="list" style="background-image: url('./assets/category-2.png')">
+                <h3 class="category-list-title">CREATIVE</h3>
+                <span class="expand" data-target="creative">
+                  <i data-lucide="plus"></i>
+                </span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="list" style="background-image: url('./assets/category-3.png')">
+                <h3 class="category-list-title">EDU-TECH</h3>
+                <span class="expand" data-target="edutech">
+                  <i data-lucide="plus"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-navigation"></div>
+        </div>
+
+        <p class="categories-text">We <span class="spin">Combine</span> <strong class="bounce">Creativity</strong> and <strong class="bounce">Technology</strong>to Create The Best Solutions for Our Clients.</p>
+        <div class="modal-categories">
+          <span class="modal-close">
+            <span class="button-close-modal">
+              <i data-lucide="x"></i>
+            </span>
+          </span>
+          <div class="modal-header">
+            <div class="modal-title"></div>
+            <a href="" target="_blank" class="modal-button">Full Article</a>
+          </div>
+          <div class="modal-body">
+            <div class="modal-services">
+              <h3>Services</h3>
+              <p class="services"></p>
+            </div>
+            <div class="modal-product">
+              <h3>Product</h3>
+              <div class="product"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="experience panel" id="experience">
+        <h2 class="experience-title">Work Experience</h2>
+        <p class="experience-subtitle">Meet our clients. We approach each client with dedication at the core of every engagement, achieving great successes and building lasting relationships.</p>
+        <div class="slider-container">
+          <div class="swiper experience-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" style="background-image: url('./assets/adira.png')"></div>
+              <div class="swiper-slide" style="background-image: url('./assets/bca.png')"></div>
+              <div class="swiper-slide" style="background-image: url('./assets/asus.png')"></div>
+              <div class="swiper-slide" style="background-image: url('./assets/im3.png')"></div>
+              <div class="swiper-slide" style="background-image: url('./assets/indosat.png')"></div>
+              <div class="swiper-slide" style="background-image: url('./assets/tri.png')"></div>
+              <div class="swiper-slide" style="background-image: url('./assets/petro1.png')"></div>
+              <div class="swiper-slide" style="background-image: url('./assets/pln.png')"></div>
+              <div class="swiper-slide" style="background-image: url('./assets/telkomsat.png')"></div>
+              <div class="swiper-slide" style="background-image: url('./assets/saipem.png')"></div>
+            </div>
+            <div class="swiper-navigation"></div>
+          </div>
+        </div>
+      </section>
+      <section class="news panel" id="news">
+        <div>
+          <h2><span class="container-up"><span class="text-up">N</span></span><span class="container-up"><span class="text-up">E</span></span><span class="container-up"><span class="text-up">W</span></span><span class="container-up"><span class="text-up">S</span></span></h2>
+          <p class="subtitle-news">Stay Updated with Our Latest News and Stories</p>
+        </div>
+        <div class="swiper news-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" style="background-image: url('./assets/news1.png');">
+                <div class="news-content">
+                  <h3>Ini Rumah Kita</h3>
+                  <h2>PERTALIFE EMPLOYEE GATHERING 2025</h2>
+                  <p>We assisted Pertalife Insurance in organizing their Employee Gathering & Annual Meeting in Semarang. Our team managed accommodation, transportation, and full event coordination throughout the three-day execution.</p>
+                </div>
+              </div>
+              <div class="swiper-slide" style="background-image: url('./assets/news2.png');">
+                <div class="news-content">
+                  <h3>Kreasi Digital Interasia</h3>
+                  <h2>COMMAND CENTER DEVELOPMENT</h2>
+                  <p>Building and Develop integrating data centers from the planning and design stages, procurement, installation, configuration, and testing of devices.</p>
+                </div>
+              </div>
+              <div class="swiper-slide" style="background-image: url('./assets/news3.png');">
+                <div class="news-content">
+                  <h3>Pondasi</h3>
+                  <h2>AI-DRIVEN MARKETING</h2>
+                  <p>The AI-Driven Marketing: Elevating Strategies with AI specialized program trusted by Indosat to enhance the capabilities of its teams in improving their understanding of artificial intelligence. Conducted across 5 batches during October to November 2024, this training focuses on equipping participants with the knowledge and tools to enhance their marketing strategies.</p>
+                </div>
+              </div>
+              <div class="swiper-slide" style="background-image: url('./assets/news4.png');">
+                <div class="news-content">
+                  <h3>Intelligence Quantum Interasia</h3>
+                  <h2>PEGADAIAN DIGITAL HUMAN</h2>
+                  <p>AI Digital Human Avatar for Pegadaian’s website, enhancing user interaction with an intelligent and interactive virtual assistant</p>
+                </div>
+              </div>
+            <div class="swiper-navigation"></div>
+          </div>
+      </section>
+      <section class="contact panel" id="contact">
+        <h2 class="contact-title">Innovate with us!</h2>
+        <h3>
+          <span class="bouncing-contact">Let's</span>
+          <span class="bouncing-contact">Collaborate</span>
+          <span class="bouncing-contact">to</span>
+          <span class="bouncing-contact">Innovate</span>
+          <span class="bouncing-contact">and</span>
+          <span class="bouncing-contact">Create</span>
+          <span class="bouncing-contact">Something</span>
+          <span class="bouncing-contact">Extraordinary!</span>
+        </h3>
+        <span class="open-form form-contact">Get in Touch</span>
+        <div class="modal-contact">
+          <header>
+            <h3>Have a project? <br/> We would to help.</h3>
+            <p style="text-decoration: underline;">marketing@asakreasi.com</p>
+            <p>+62-813 11654640</p> 
+            <p>The Manhattan Square <br/> Mid Tower 12th Floor Unit F Jl. TB Simatupang Kav 1-S Jakarta 12560</p>
+            <span class="close-modal-form">
+              <i data-lucide="x"></i>
+            </span>
+          </header>
+          <form>
+            <div>
+              <input type="text" name="name" id="name" placeholder="Your Name" class="input-modal-contact" />
+              <input type="text" name="email" id="email" placeholder="Your E-mail" class="input-modal-contact" />
+              <input type="text" name="phone" id="phone" placeholder="Your Phone" class="input-modal-contact" />
+              <input type="text" name="company" id="company" placeholder="Your Company" class="input-modal-contact" />
+              <textarea name="requirement" id="requirement" placeholder="Your Requirement" class="input-modal-contact"></textarea>
+            </div>
+            <button>Send Message</button>
+          </form>
+        </div>
+      </section>
+      <section class="info panel" id="info">
+        <h1 class="info-title">ASA KREASI INTERASIA</h1>
+        <p class="info-subtitle">HE MANHATTAN SQUARE BUILDING, MID TOWER LT.12 UNIT C-F, JL. TB SIMATUPANG KAV.1-S, Desa/Kelurahan Cilandak Timur, Kec. Pasar Minggu, Kota Adm. Jakarta Selatan, Provinsi DKI Jakarta, Kode Pos: 12560</p>
+        <p class="info-subtitle">Phone: +62 889-0206-2334</p>
+        <p class="info-subtitle">E-mail: marketing@asakreasi.com</p>
+      </section>
+      <div class="menu">
+        <button class="nav-link" id="goto-hero" data-target="hero">
+          <i data-lucide="house"></i>
+        </button>
+        <button class="nav-link" id="goto-categories" data-target="categories">
+          <i data-lucide="circle-ellipsis"></i>
+        </button>
+        <button class="nav-link" id="goto-experience" data-target="experience">
+          <i data-lucide="briefcase"></i>
+        </button>
+        <button class="nav-link" id="goto-news" data-target="news">
+          <i data-lucide="newspaper"></i>
+        </button>
+        <button class="nav-link" id="goto-contact" data-target="contact">
+          <i data-lucide="phone"></i>
+        </button>
+        <button class="nav-link" id="goto-info" data-target="info">
+          <i data-lucide="info"></i>
+        </button>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Observer.min.js"></script>
+    <!-- ScrollSmoother requires ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.3.4/dist/lenis.min.js"></script> 
+    <script src="./index.js"></script>
+    <script src="./constant.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
