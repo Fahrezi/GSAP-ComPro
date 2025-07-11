@@ -39,7 +39,7 @@ function goToPanel(index) {
 
 Observer.create({
   target: window,
-  type: 'wheel',
+  type: 'wheel, touch, pointer',
   wheelSpeed: -1,
   onUp: () => goToPanel(currentPanel + 1),
   onDown: () => goToPanel(currentPanel - 1),
@@ -346,34 +346,6 @@ gsap.fromTo('.experience-subtitle', { x: 30 }, {
   },
   repeat: 0,
 });
-
-// gsap.to('.experience-title', {
-//   x: 200,
-//   duration: 1,
-//   ease: 'power3.out',
-//   scrollTrigger: {
-//     trigger: "#experience",
-//     start: "top center", // When top of hero hits top of viewport,
-//     end: "bottom top",
-//     toggleActions: "restart restart restart restart",
-//     scrub: true
-//   },
-//   repeat: 0,
-// });
-
-// gsap.to('.experience-subtitle', {
-//   x: -200,
-//   duration: 1,
-//   ease: 'power3.out',
-//   scrollTrigger: {
-//     trigger: "#experience",
-//     start: "top center", // When top of hero hits top of viewport,
-//     end: "bottom top",
-//     toggleActions: "restart restart restart restart",
-//     scrub: true
-//   },
-//   repeat: 0,
-// });
 
 // News animation
 document.querySelectorAll('.text-up').forEach((item, index) => {
