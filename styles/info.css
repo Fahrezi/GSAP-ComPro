@@ -29,11 +29,13 @@ section.info p {
     font-size: 150px;
     font-weight: 500;
     margin-bottom: 4rem;
+    width: 90%;
   }
 
   section.info p {
     font-size: 32px;
     font-weight: 400;
     margin-bottom: 1rem;
+    width: 90%;
   }
 }
