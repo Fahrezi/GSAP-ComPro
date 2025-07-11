@@ -2,7 +2,7 @@ section.experience {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 3rem
+  padding: 1rem;
 }
 
 section.experience > h2 {

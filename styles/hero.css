@@ -9,6 +9,7 @@ section.hero {
 section.hero > h2 {
   display: inline-block;
   font-size: 1.65rem;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   font-weight: 800;
   background: linear-gradient(189deg,rgba(46, 24, 242, 1) 0%, rgba(240, 224, 55, 1) 100%);
