@@ -22,7 +22,7 @@ function goToPanel(index, direction) {
 
   const tl = gsap.timeline({
     defaults: { duration: 1.25, ease: 'power1.inOut'},
-    onComplete: () => isAnimating = false
+    onComplete: () => setTimeout(() => isAnimating = false, 1000)
   });
 
   if (currentIndex >= 0) {
