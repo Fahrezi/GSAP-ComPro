@@ -1,14 +1,11 @@
-section.contact {
+section.contact > .contact-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 1rem;
-}
-
-section.contact > .contact-container {
-  position: relative;
-  width: 100%;
-  height: 100%
 }
  
 section.contact > .contact-container > h2 {
