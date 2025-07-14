@@ -1,51 +1,52 @@
-const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smooth: true,
-  direction: 'vertical',
-  gestureOrientation: 'vertical',
-  smoothTouch: true
-});
-
 const panels = document.querySelectorAll('.panel');
-let currentPanel = 0;
-let lenisEnabled = true;
+let currentIndex = -1,
+  isAnimating = false,
+  wrap = gsap.utils.wrap(0, panels.length);
 
-function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-
-requestAnimationFrame(raf);
+// list animation
+const animationList = [
+  animateHero,
+  animateCategory,
+  animateExperience,
+  animateNews,
+  animateContact,
+  animateInfo
+];
 
 // Scroll to panel
-function goToPanel(index) {
-  if(index < 0 || index >= panels.length || !lenisEnabled) return;
+function goToPanel(index, direction) {
+  index = wrap(index);
+  isAnimating = true;
+  let fromTop = direction === -1,
+  dFactor = fromTop ? -1 : 1;
 
-  lenisEnabled = false;
-  currentPanel = index;
+  const tl = gsap.timeline({
+    defaults: { duration: 1.25, ease: 'power1.inOut'},
+    onComplete: () => isAnimating = false
+  });
 
-  lenis.scrollTo(panels[index]);
+  if (currentIndex >= 0) {
+    gsap.set(panels[currentIndex], { zIndex: 0 });
+    tl.set(panels[currentIndex], { autoAlpha: 0 });
+  }
 
-  const timeline = gsap.timeline({
-    onComplete: () => {
-      lenisEnabled = true;
-    }
-  })
+  gsap.set(panels[index], { autoAlpha: 1, zIndex: 1 })
+  animationList[index]();
 
-
-  timeline.to({}, { duration: 1.3 });
+  currentIndex = index;
 }
 
 Observer.create({
-  target: window,
   type: 'wheel,touch,pointer',
   wheelSpeed: -1,
-  onUp: () => goToPanel(currentPanel + 1),
-  onDown: () => goToPanel(currentPanel - 1),
+  onDown: () => !isAnimating && goToPanel(currentIndex - 1, -1),
+  onUp: () => !isAnimating && goToPanel(currentIndex + 1, 1),
   tolerance: 10,
   preventDefault: true,
 });
+
+goToPanel(0, 1);
+gsap.registerPlugin(Observer);
 
 // Carousel
 const experienceSwiper2 = new Swiper('.swiper.experience-swiper', {
@@ -184,7 +185,16 @@ document.querySelector('.close-modal-form').addEventListener('click', () => {
     return lenis.start();
 });
 
+gsap.from(".menu", {
+  x: "5rem",
+  duration: 1,
+  ease: 'power2.out',
+  delay: 0.5,
+  yoyo: true,
+});
+
 // hero animation
+function animateHero() {
   gsap.to(".company-hero", {
     scale: 1,
     duration: 1,
@@ -192,14 +202,6 @@ document.querySelector('.close-modal-form').addEventListener('click', () => {
     delay: 0.5,
     yoyo: true,
   });
-
-  gsap.from(".menu", {
-    x: "5rem",
-    duration: 1,
-    ease: 'power2.out',
-    delay: 0.5,
-    yoyo: true,
-  })
 
   document.querySelectorAll('.text-hero').forEach((text, index) => {
     gsap.to(text, {
@@ -210,146 +212,138 @@ document.querySelector('.close-modal-form').addEventListener('click', () => {
     });
   });
 
-gsap.registerPlugin(ScrollTrigger, Observer);
-
-gsap.fromTo(".company-hero", { scale: 0.7 }, {
-  scale: 1,
-  duration: 1,
-  ease: 'power2.out',
-  delay: 0.5,
-  yoyo: true,
-  scrollTrigger: {
-    trigger: "#hero",
-    start: "top top", // When top of hero hits top of viewport
-    toggleActions: "play none none restart",
-  },
-  repeat: 0,
-  markers: true
-});
-
-document.querySelectorAll('.text-hero').forEach((text, index) => {
-  gsap.fromTo(text, { y: '-100%' }, {
-    y: 0,
-    duration: 0.7,
+  gsap.fromTo(".company-hero", { scale: 0.7 }, {
+    scale: 1,
+    duration: 1,
     ease: 'power2.out',
-    delay: index * 0.2,
-    scrollTrigger: {
-      trigger: "#hero",
-      start: "top top", // When top of hero hits top of viewport
-      toggleActions: "play none none restart",
-    },
+    delay: 0.5,
+    yoyo: true,
     repeat: 0,
     markers: true
   });
-});
 
-//category animation
-document.querySelectorAll('.category-list-title').forEach((item, index) => {
-  gsap.fromTo(item, { opacity: 0, y: 50 }, {
-    y: 0,
-    opacity: 1,
+  document.querySelectorAll('.text-hero').forEach((text, index) => {
+    gsap.fromTo(text, { y: '-100%' }, {
+      y: 0,
+      duration: 0.7,
+      ease: 'power2.out',
+      delay: index * 0.2,
+      repeat: 0,
+      markers: true
+    });
+  });
+}
+
+function animateCategory() {
+  document.querySelectorAll('.category-list-title').forEach((item, index) => {
+    gsap.fromTo(item, { opacity: 0, y: 50 }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7,
+      ease: 'circ.out',
+      delay: index * 0.2,
+      repeat: 0,
+      markers: true
+    });
+  });
+
+  document.querySelectorAll('.expand').forEach((item, index) => {
+    gsap.fromTo(item, { scale: 0.5, z: 90 }, {
+      z: 0,
+      scale: 1,
+      duration: 0.7,
+      ease: 'power3.out',
+      delay: index * 0.2,
+      scrollTrigger: {
+        trigger: "#categories",
+        start: "top center", // When top of hero hits top of viewport
+        toggleActions: "restart restart restart restart",
+      },
+      repeat: 0,
+      markers: true
+    });
+  });
+
+  gsap.fromTo('.spin', { rotate: 0 }, {
+    rotate: 360,
     duration: 0.7,
     ease: 'circ.out',
-    delay: index * 0.2,
     scrollTrigger: {
       trigger: "#categories",
       start: "top center", // When top of hero hits top of viewport
       toggleActions: "restart restart restart restart",
     },
     repeat: 0,
-    markers: true
+    delay: 0.5
   });
-});
 
-
-document.querySelectorAll('.expand').forEach((item, index) => {
-  gsap.fromTo(item, { scale: 0.5, z: 90 }, {
-    z: 0,
-    scale: 1,
-    duration: 0.7,
-    ease: 'power3.out',
-    delay: index * 0.2,
-    scrollTrigger: {
-      trigger: "#categories",
-      start: "top center", // When top of hero hits top of viewport
-      toggleActions: "restart restart restart restart",
-    },
-    repeat: 0,
-    markers: true
+  document.querySelectorAll('.bounce').forEach((item, index) => {
+    gsap.fromTo(item, { y: -10 }, {
+      y: 0,
+      duration: 1,
+      ease: 'bounce.out',
+      scrollTrigger: {
+        trigger: "#categories",
+        start: "top center", // When top of hero hits top of viewport
+        toggleActions: "restart restart restart restart",
+      },
+      repeat: 0,
+      delay: index * 0.7 + 0.3
+    });
   });
-});
 
-gsap.fromTo('.spin', { rotate: 0 }, {
-  rotate: 360,
-  duration: 0.7,
-  ease: 'circ.out',
-  scrollTrigger: {
-    trigger: "#categories",
-    start: "top center", // When top of hero hits top of viewport
-    toggleActions: "restart restart restart restart",
-  },
-  repeat: 0,
-  delay: 0.5
-});
-
-document.querySelectorAll('.bounce').forEach((item, index) => {
-  gsap.fromTo(item, { y: -10 }, {
-    y: 0,
+  gsap.fromTo('.categories-text', { x: -30 }, {
+    x: 0,
     duration: 1,
-    ease: 'bounce.out',
+    ease: 'power3.out',
     scrollTrigger: {
       trigger: "#categories",
       start: "top center", // When top of hero hits top of viewport
       toggleActions: "restart restart restart restart",
     },
     repeat: 0,
-    delay: index * 0.7 + 0.3
+    delay: 0.5
   });
-});
-
-gsap.fromTo('.categories-text', { x: -30 }, {
-  x: 0,
-  duration: 1,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: "#categories",
-    start: "top center", // When top of hero hits top of viewport
-    toggleActions: "restart restart restart restart",
-  },
-  repeat: 0,
-  delay: 0.5
-});
+}
 
 //experience animation
-gsap.fromTo('.experience-title', { x: -30 }, {
-  x: 0,
-  duration: 1,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: "#experience",
-    start: "top center", // When top of hero hits top of viewport
-    toggleActions: "restart restart restart restart",
-  },
-  repeat: 0,
-});
+function animateExperience() {
+  gsap.fromTo('.experience-title', { x: -30 }, {
+    x: 0,
+    duration: 1,
+    ease: 'power3.out',
+    repeat: 0,
+  });
 
-gsap.fromTo('.experience-subtitle', { x: 30 }, {
-  x: 0,
-  duration: 1,
-  ease: 'power3.out',
-  scrollTrigger: {
-    trigger: "#experience",
-    start: "top center", // When top of hero hits top of viewport
-    toggleActions: "restart restart restart restart",
-  },
-  repeat: 0,
-});
+  gsap.fromTo('.experience-subtitle', { x: 30 }, {
+    x: 0,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: "#experience",
+      start: "top center", // When top of hero hits top of viewport
+      toggleActions: "restart restart restart restart",
+    },
+    repeat: 0,
+  });
+}
 
 // News animation
-document.querySelectorAll('.text-up').forEach((item, index) => {
-  gsap.fromTo(item, { y: '100%' }, {
+function animateNews() {
+  document.querySelectorAll('.text-up').forEach((item, index) => {
+    gsap.fromTo(item, { y: '100%' }, {
+      y: 0,
+      duration: 0.7,
+      ease: 'expo.out',
+      repeat: 0,
+      delay: index * 0.1 + 0.1
+    });
+  });
+
+  gsap.fromTo('.subtitle-news', { opacity: 0, y: 30 }, {
+    opacity: 1,
     y: 0,
-    duration: 0.7,
+    duration: 1,
     ease: 'expo.out',
     scrollTrigger: {
       trigger: "#news",
@@ -357,109 +351,76 @@ document.querySelectorAll('.text-up').forEach((item, index) => {
       toggleActions: "restart restart restart restart",
     },
     repeat: 0,
-    delay: index * 0.1 + 0.1
+    delay: 0.4
   });
-});
-
-gsap.fromTo('.subtitle-news', { opacity: 0, y: 30 }, {
-  opacity: 1,
-  y: 0,
-  duration: 1,
-  ease: 'expo.out',
-  scrollTrigger: {
-    trigger: "#news",
-    start: "top center", // When top of hero hits top of viewport
-    toggleActions: "restart restart restart restart",
-  },
-  repeat: 0,
-  delay: 0.4
-});
+}
 
 // Contact Animation
-document.querySelectorAll('.bouncing-contact').forEach((item, index) => {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#contact",
-      start: "top center", // When top of hero hits top of viewport
-      toggleActions: "restart restart restart restart",
-    },
+function animateContact() {
+  document.querySelectorAll('.bouncing-contact').forEach((item, index) => {
+    const tl = gsap.timeline({
+      defaults: { duration: 1.25, ease: 'power1.inOut'},
+    });
+    tl.set(item, { y: 0 });
+    tl.to(item, {
+      y: -20,
+      duration: 0.3,
+      ease: "power1.in",
+      delay: index * 0.15 + 0.5,
+      })
+    .to(item, {
+      y: 0,
+      duration: 0.3,
+      ease: "power3.out",
+    });
   });
-  tl.to(item, {
-    y: -20,
-    duration: 0.3,
-    ease: "power1.in",
-    delay: index * 0.15 + 0.5,
-    })
-  .to(item, {
-    y: 0,
-    duration: 0.3,
-    ease: "power3.out",
+
+  gsap.fromTo('.contact-title', { opacity: 0 }, {
+    opacity: 1,
+    duration: 1,
+    ease: 'expo.out',
+    repeat: 0,
+    delay: 0.2
   });
-});
 
-gsap.fromTo('.contact-title', { opacity: 0 }, {
-  opacity: 1,
-  duration: 1,
-  ease: 'expo.out',
-  scrollTrigger: {
-    trigger: "#contact",
-    start: "top center", // When top of hero hits top of viewport
-    toggleActions: "restart restart restart restart",
-  },
-  repeat: 0,
-  delay: 0.2
-});
-
-gsap.to('.form-contact', {
-  '--angle': 360,
-  duration: 5,
-  ease: 'none',
-  repeat: -1,
-  delay: 0.5,
-  modifiers: {
-    "--angle": gsap.utils.unitize(v => parseFloat(v) % 360) // keep value within 0–360deg
-  }
-});
+  gsap.to('.form-contact', {
+    '--angle': 360,
+    duration: 5,
+    ease: 'none',
+    repeat: -1,
+    delay: 0.5,
+    modifiers: {
+      "--angle": gsap.utils.unitize(v => parseFloat(v) % 360) // keep value within 0–360deg
+    }
+  });
+}
 
 //Info animation
-gsap.to('#info', {
-  backgrund: '#4FD66C',
-  background: 'radial-gradient(circle,rgba(98, 222, 125, 1) 0%, rgba(109, 181, 232, 1) 100%)',
-  duration: 5,
-  ease: 'expo.out',
-  scrollTrigger: {
-    trigger: "#info",
-    start: "top center", // When top of hero hits top of viewport
-    toggleActions: "restart restart reserve restart",
-  },
-  repeat: 0,
-  delay: 0.7
-});
-
-gsap.fromTo('#info-title',  { opacity: 0 }, {
-  opacity: 1,
-  duration: 5,
-  ease: 'expo.out',
-  scrollTrigger: {
-    trigger: "#info",
-    start: "top center", // When top of hero hits top of viewport
-    toggleActions: "restart restart reserve restart",
-  },
-  repeat: 0,
-  delay: 0.5
-});
-
-document.querySelectorAll('.info-subtitle').forEach((item, index) => {
-  gsap.fromTo(item, { opacity: '0' }, {
-    opacity: 1,
-    duration: 0.7,
+function animateInfo() {
+  gsap.fromTo('#info', { background: 'none' }, {
+    backgrund: '#4FD66C',
+    background: 'radial-gradient(circle,rgba(98, 222, 125, 1) 0%, rgba(109, 181, 232, 1) 100%)',
+    duration: 2.5,
     ease: 'expo.out',
-    scrollTrigger: {
-      trigger: "#news",
-      start: "top center", // When top of hero hits top of viewport
-      toggleActions: "restart restart restart restart",
-    },
     repeat: 0,
-    delay: index * 0.1 + 0.1
+    delay: 0.2
   });
-});
+
+  gsap.fromTo('#info-title',  { opacity: 0 }, {
+    opacity: 1,
+    duration: 5,
+    ease: 'expo.out',
+    repeat: 0,
+    delay: 0.5
+  });
+
+  document.querySelectorAll('.info-subtitle').forEach((item, index) => {
+    gsap.fromTo(item, { opacity: '0' }, {
+      opacity: 1,
+      duration: 0.7,
+      ease: 'expo.out',
+      repeat: 0,
+      delay: index * 0.1 + 0.1
+    });
+  });
+}

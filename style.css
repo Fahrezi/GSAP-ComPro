@@ -7,12 +7,15 @@
 body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 section {
   width: 100dvw;
   height: 100dvh;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
 }
 
 .menu {
